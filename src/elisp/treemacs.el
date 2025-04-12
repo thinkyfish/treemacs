@@ -48,6 +48,7 @@
 (require 'treemacs-fringe-indicator)
 (require 'treemacs-header-line)
 (require 'treemacs-annotations)
+(require 'treemacs-autoadjust)
 
 (defconst treemacs-version
   (eval-when-compile
