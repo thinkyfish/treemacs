@@ -63,9 +63,12 @@ not visible."
                                    (treemacs-canonical-path (dired-current-directory))))))
        (when (and treemacs-window
                   current-file
-                  (not (s-starts-with? treemacs--buffer-name-prefix buffer-name))
+                  (not (s-starts-with? treemacs-buffer-name-prefix buffer-name))
                   (file-exists-p current-file)
-                  (not (string= buffer-name "COMMIT_EDITMSG")))
+                  (not (string= buffer-name "COMMIT_EDITMSG"))
+                  (--none?
+                   (funcall it current-file)
+                   treemacs-file-follow-ignore-functions))
          (-when-let (project-for-file (treemacs--find-project-for-buffer current-file))
            (with-selected-window treemacs-window
              (-let [selected-file (--if-let (treemacs-current-button)
