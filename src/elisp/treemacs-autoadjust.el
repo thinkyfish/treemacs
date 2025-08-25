@@ -87,7 +87,8 @@ Must be greater than 1."
   "Adjust size of treemacs sidebar to display its buffer's contents exactly.
 Respects `treemacs-min-width-chars` and `treemacs-max-width-ratio`."
   (interactive)
-  (let* ((window (window-normalize-window (treemacs-get-local-window) t))
+  (when-let* ((window (treemacs-get-local-window)))
+  (let* (
 		 (frame (window-frame window))
 		 (pixelwise window-resize-pixelwise)
          (char-width (frame-char-width frame))
@@ -125,7 +126,7 @@ Respects `treemacs-min-width-chars` and `treemacs-max-width-ratio`."
 	(unless (= width total-width)  
 	  (window-preserve-size window t)
 	  (window-resize-no-error
-       window (- width total-width) t window pixelwise))))
+       window (- width total-width) t window pixelwise)))))
 
 
 (defun advice-add* (functions where advice-function)
